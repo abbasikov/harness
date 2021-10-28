@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import * as urls from '../constants'
 import axios from 'axios'
+import * as urls from '../constants'
 
 import {
   Typography,
@@ -11,23 +11,17 @@ import {
 } from '@material-ui/core'
 
 const SkillsList = () => {
-  const [state, setState] = useState({
-    skills: [],
-  })
-
+  const [state, setState] = useState([])
   useEffect(() => {
     const getSkills = () => {
-      axios
-        .get(urls.mostUsedSkilss)
-        .then((response) => setState({ skills: response.data }))
+      axios.get(urls.mostUsedSkilss).then((response) => setState(response.data))
     }
     getSkills()
   }, [])
-
   const renderSkills = () => {
-    if (state.skills.length > 0) {
-      return state.skills.map((skill) => (
-        <ListItem>
+    if (state.length > 0) {
+      return state.map((skill) => (
+        <ListItem key={skill.skill.pk}>
           <ListItemText primary={skill.skill.title} />
         </ListItem>
       ))

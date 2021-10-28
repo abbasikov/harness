@@ -8,32 +8,23 @@ import {
   ListItem,
   ListItemText,
   Box,
+  Divider,
 } from '@material-ui/core'
 
-const JobList = ({ homeState, setHomeState }) => {
-  const [state, setState] = useState({
-    jobs: [],
-  })
-
-  useEffect(() => {
-    const getJobs = () => {
-      axios.get(urls.jobAll).then((response) => {
-        console.log('Response: ', response.data)
-        setState({ jobs: response.data })
-      })
-    }
-    getJobs()
-  }, [])
-
+const JobList = ({ state, setState }) => {
   const renderJobs = () => {
     if (state.jobs.length > 0) {
       return state.jobs.map((job) => (
-        <ListItem
-          button
-          onClick={() => setHomeState({ ...homeState, selected: job.pk })}
-        >
-          <ListItemText primary={job.title} />
-        </ListItem>
+        <React.Fragment>
+          <ListItem
+            button
+            onClick={() => setState({ ...state, selected: job.pk })}
+            key={job.pk}
+          >
+            <ListItemText primary={job.title} />
+          </ListItem>
+          <Divider />
+        </React.Fragment>
       ))
     } else {
       return <Typography variant="body1">No jobs listed yet.</Typography>

@@ -17,12 +17,19 @@ const MyTextField = ({ label, ...props }) => {
 }
 
 const JobForm = ({ job, formRef }) => {
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, actions) => {
+    actions.resetForm({
+      values: {
+        title: '',
+        skills: [],
+        description: '',
+      },
+    })
     return values
   }
 
   return (
-    <Box border={1}>
+    <React.Fragment>
       <Typography variant="h4">Post a new Job</Typography>
       <Formik
         enableReinitialize
@@ -44,17 +51,24 @@ const JobForm = ({ job, formRef }) => {
                       {values.skills && values.skills.length > 0 ? (
                         values.skills.map((skill, index) => (
                           <div key={index}>
-                            <MyTextField name={`skills.${index}`} />
+                            <MyTextField
+                              name={`skills.${index}`}
+                              label="Skill"
+                            />
                             <Button
-                              variant="contained"
                               type="button"
+                              variant="outlined"
+                              size="small"
+                              color="secondary"
                               onClick={() => arrayHelpers.remove(index)} // remove a skill from the list
                             >
                               -
                             </Button>
                             <Button
-                              variant="contained"
                               type="button"
+                              variant="outlined"
+                              size="small"
+                              color="secondary"
                               onClick={() => arrayHelpers.insert(index, '')} // insert an empty string at a position
                             >
                               +
@@ -63,7 +77,9 @@ const JobForm = ({ job, formRef }) => {
                         ))
                       ) : (
                         <Button
-                          variant="contained"
+                          color="secondary"
+                          variant="outlined"
+                          size="small"
                           type="button"
                           onClick={() => arrayHelpers.push('')}
                         >
@@ -71,15 +87,6 @@ const JobForm = ({ job, formRef }) => {
                           Add a skill
                         </Button>
                       )}
-                      <div>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          type="submit"
-                        >
-                          Submit
-                        </Button>
-                      </div>
                     </div>
                   )}
                 />
@@ -96,7 +103,7 @@ const JobForm = ({ job, formRef }) => {
           </Form>
         )}
       </Formik>
-    </Box>
+    </React.Fragment>
   )
 }
 
