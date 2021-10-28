@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, Form, useField, FieldArray } from 'formik'
-import { TextField, Grid, Box, Typography, Button } from '@material-ui/core'
+import { TextField, Grid, Typography, Button } from '@material-ui/core'
 
 const MyTextField = ({ label, ...props }) => {
   const [field, meta] = useField(props)

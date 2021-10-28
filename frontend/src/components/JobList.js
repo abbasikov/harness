@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import {
   Typography,
@@ -28,12 +28,7 @@ const JobList = ({ state, setState }) => {
       return <Typography variant="body1">No jobs listed yet.</Typography>
     }
   }
-  return (
-    <Box border={1} p={4}>
-      <Typography variant="h4">Job List</Typography>
-      <List>{renderJobs()}</List>
-    </Box>
-  )
+  return <List>{renderJobs()}</List>
 }
 
 export default JobList

@@ -24,7 +24,7 @@ const SkillsList = () => {
         <ListItem key={skill.pk}>
           <ListItemText
             primary={skill.title}
-            secondary={`Count: ${skill.job_count}`}
+            secondary={`${skill.job_count} times`}
           />
         </ListItem>
       ))
@@ -32,12 +32,7 @@ const SkillsList = () => {
       return <Typography variant="body1">No skills found.</Typography>
     }
   }
-  return (
-    <Box border={1} p={4}>
-      <Typography variant="h4">Most Used Skills</Typography>
-      <List>{renderSkills()}</List>
-    </Box>
-  )
+  return <List>{renderSkills()}</List>
 }
 
 export default SkillsList

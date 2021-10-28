@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import * as urls from '../constants'
 import axios from 'axios'
-import { Box, Chip, Grid, Typography } from '@material-ui/core'
+import { Chip, Grid, Typography } from '@material-ui/core'
 
 const JobDetail = ({ homeState }) => {
   const [state, setState] = useState(null)
@@ -40,12 +40,7 @@ const JobDetail = ({ homeState }) => {
     }
   }
 
-  return (
-    <Box border={1} p={4}>
-      <Typography variant="h4"> Job Detail </Typography>
-      {renderDetail()}
-    </Box>
-  )
+  return renderDetail()
 }
 
 export default JobDetail

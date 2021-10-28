@@ -6,7 +6,7 @@ import JobDetail from '../components/JobDetail'
 import JobForm from '../components/JobForm'
 import SkillsList from '../components/SkillsList'
 
-import { Box, Button, Grid } from '@material-ui/core'
+import { Box, Button, Grid, Typography } from '@material-ui/core'
 
 import * as urls from '../constants'
 
@@ -47,9 +47,9 @@ const Home = () => {
 
   return (
     <React.Fragment>
-      <Box p={4}>
-        <Grid container spacing={3} justify="center" alignItems="center">
-          <Grid item xs={7}>
+      <Grid container spacing={3}>
+        <Grid container item xs={6} spacing={2}>
+          <Grid item xs={12}>
             <Box p={5} border={1}>
               <JobForm job={state.job} formRef={formRef} />
               <Button
@@ -61,17 +61,35 @@ const Home = () => {
               </Button>
             </Box>
           </Grid>
-          <Grid item xs={7}>
-            <JobDetail homeState={state} />
-          </Grid>
-          <Grid item xs={7}>
-            <SkillsList />
-          </Grid>
-          <Grid item xs={7}>
-            <JobList state={state} setState={setState} />
+          <Grid item xs={12}>
+            <Box p={5} border={1}>
+              <Typography variant="h4">Most Used Skills</Typography>
+              <SkillsList />
+            </Box>
           </Grid>
         </Grid>
-      </Box>
+        <Grid
+          container
+          item
+          xs={6}
+          spacing={2}
+          justifyContent="flex-start"
+          alignItems="flex-start"
+        >
+          <Grid item xs={12}>
+            <Box p={5} border={1}>
+              <Typography variant="h4"> Job Detail </Typography>
+              <JobDetail homeState={state} />
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box p={5} border={1}>
+              <Typography variant="h4">Job List</Typography>
+              <JobList state={state} setState={setState} />
+            </Box>
+          </Grid>
+        </Grid>
+      </Grid>
     </React.Fragment>
   )
 }
