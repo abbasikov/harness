@@ -34,15 +34,21 @@ const Home = () => {
 
   const handleSubmit = async () => {
     const values = await formRef.current.submitForm()
-    console.log('Values: ', values)
-    const skills = await axios.post(urls.skillsCreate, {
-      skills: values.skills,
-    })
-    console.log('Skills', skills)
-    const job = await axios.post(urls.jobCreate, values)
-    let jobs = state.jobs.concat(job.data.job)
-    setState({ ...state, jobs })
-    console.log('Job', job)
+    try {
+      const skills = await axios.post(urls.skillsCreate, {
+        skills: values.skills,
+      })
+    } catch (error) {
+      console.log('Error in skill creation: ', error)
+      return
+    }
+    try {
+      const job = await axios.post(urls.jobCreate, values)
+      let jobs = state.jobs.concat(job.data.job)
+      setState({ ...state, jobs })
+    } catch (error) {
+      console.log('Error in job creation: ', error)
+    }
   }
 
   return (
