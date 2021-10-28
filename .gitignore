@@ -1,3 +1,4 @@
-backend/jobs/migrations/*
-backend/db.sqlite3
+backend/harness/db.sqlite3
+backend/harness/jobs/migrations/*
+!backend/harness/jobs/migrations/__init__.py
 env
