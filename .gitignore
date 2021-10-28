@@ -1,0 +1,3 @@
+backend/jobs/migrations/*
+backend/db.sqlite3
+env
