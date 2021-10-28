@@ -34,11 +34,17 @@ class JobCreateView(CreateAPIView):
     queryset = Job.objects.all()
 
 
+class SkillCreateView(CreateAPIView):
+    permissions_classes = (AllowAny, )
+    serializer_class = SkillSerializer
+    queryset = Skill.objects.all()
+
+
 class MostUsedSkillsView(ListAPIView):
     permission_classes = (AllowAny, )
-    serializer_class = SkillSerializer
+    serializer_class = JobSkillSerializer
     pagination_class = None
 
     def get_queryset(self):
-        qs = JobSkills.objects.annotate(skill_count=Count('skill'))[:10]
+        qs = JobSkill.objects.annotate(skill_count=Count('skill'))[:10]
         return qs

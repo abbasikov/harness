@@ -1,12 +1,5 @@
 from rest_framework import serializers
-
 from jobs.models import *
-
-
-class JobSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Job
-        fields = '__all__'
 
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -15,7 +8,17 @@ class SkillSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class JobSkillSerializer(serializers.ModelSerializer):
+class JobSerializer(serializers.ModelSerializer):
+    skills = SkillSerializer(many=True)
+
     class Meta:
-        model = JobSkills
-        fields = '__all__'
+        model = Job
+        fields = ['pk', 'title', 'description', 'skills']
+
+
+class JobSkillSerializer(serializers.ModelSerializer):
+    skill = SkillSerializer()
+
+    class Meta:
+        model = JobSkill
+        fields = ['skill']

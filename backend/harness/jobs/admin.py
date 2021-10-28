@@ -3,4 +3,4 @@ from .models import *
 
 admin.site.register(Job)
 admin.site.register(Skill)
-admin.site.register(JobSkills)
+admin.site.register(JobSkill)
