@@ -14,7 +14,9 @@ const JobDetail = ({ homeState }) => {
 
   const renderSkills = () => {
     if (state.skills) {
-      return state.skills.map((skill) => <Chip label={skill.title} />)
+      return state.skills.map((skill) => (
+        <Chip key={skill.pk} label={skill.title} />
+      ))
     }
   }
 
@@ -25,7 +27,7 @@ const JobDetail = ({ homeState }) => {
       return (
         <Grid container>
           <Grid item xs={12}>
-            <Typography variant="h3">{state.title}</Typography>
+            <Typography variant="h5">{state.title}</Typography>
           </Grid>
           <Grid item xs={12}>
             {renderSkills()}

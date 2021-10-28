@@ -21,8 +21,11 @@ const SkillsList = () => {
   const renderSkills = () => {
     if (state.length > 0) {
       return state.map((skill) => (
-        <ListItem key={skill.skill.pk}>
-          <ListItemText primary={skill.skill.title} />
+        <ListItem key={skill.pk}>
+          <ListItemText
+            primary={skill.title}
+            secondary={`Count: ${skill.job_count}`}
+          />
         </ListItem>
       ))
     } else {

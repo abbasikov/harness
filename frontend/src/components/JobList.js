@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import * as urls from '../constants'
-import axios from 'axios'
 
 import {
   Typography,
