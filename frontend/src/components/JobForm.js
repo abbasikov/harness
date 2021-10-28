@@ -1,6 +1,7 @@
 import React from 'react'
 import { Formik, Form, useField, FieldArray } from 'formik'
 import { TextField, Grid, Typography, Button } from '@material-ui/core'
+import * as Yup from 'yup'
 
 const MyTextField = ({ label, ...props }) => {
   const [field, meta] = useField(props)
@@ -16,12 +17,20 @@ const MyTextField = ({ label, ...props }) => {
   )
 }
 
+const validationSchema = Yup.object({
+  title: Yup.string()
+    .required('Title Required')
+    .max(250, "Can't be more than 100 characters"),
+  skills: Yup.array().of(Yup.string().required('Skill Required')).required(),
+  description: Yup.string().required('Description Required'),
+})
+
 const JobForm = ({ job, formRef }) => {
   const handleSubmit = (values, actions) => {
     actions.resetForm({
       values: {
         title: '',
-        skills: [],
+        skills: [''],
         description: '',
       },
     })
@@ -36,6 +45,8 @@ const JobForm = ({ job, formRef }) => {
         onSubmit={handleSubmit}
         initialValues={job}
         innerRef={formRef}
+        validationSchema={validationSchema}
+        validateOnChange={true}
       >
         {({ values }) => (
           <Form>
@@ -55,15 +66,19 @@ const JobForm = ({ job, formRef }) => {
                               name={`skills.${index}`}
                               label="Skill"
                             />
-                            <Button
-                              type="button"
-                              variant="outlined"
-                              size="small"
-                              color="secondary"
-                              onClick={() => arrayHelpers.remove(index)} // remove a skill from the list
-                            >
-                              -
-                            </Button>
+                            {values.skills.length > 1 ? (
+                              <Button
+                                type="button"
+                                variant="outlined"
+                                size="small"
+                                color="secondary"
+                                onClick={() => arrayHelpers.remove(index)} // remove a skill from the list
+                              >
+                                -
+                              </Button>
+                            ) : (
+                              ''
+                            )}
                             <Button
                               type="button"
                               variant="outlined"

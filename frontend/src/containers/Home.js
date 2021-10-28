@@ -15,7 +15,7 @@ const Home = () => {
     job: {
       title: '',
       description: '',
-      skills: [],
+      skills: [''],
     },
     jobs: [],
     selected: null,
@@ -33,7 +33,13 @@ const Home = () => {
   }, [])
 
   const handleSubmit = async () => {
-    const values = await formRef.current.submitForm()
+    let values
+    try {
+      values = await formRef.current.submitForm()
+    } catch (error) {
+      console.log('Error: ', error)
+      return
+    }
     try {
       const skills = await axios.post(urls.skillsCreate, {
         skills: values.skills,
@@ -52,45 +58,51 @@ const Home = () => {
   }
 
   return (
-    <Grid container spacing={3}>
-      <Grid container item xs={6} spacing={2}>
-        <Grid item xs={12}>
-          <Box p={5} border={1}>
-            <JobForm job={state.job} formRef={formRef} />
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-              Post Job{' '}
-            </Button>
-          </Box>
+    <Box p={5}>
+      <Grid container spacing={3}>
+        <Grid container item xs={6} spacing={2}>
+          <Grid item xs={12}>
+            <Box p={5} border={1}>
+              <JobForm job={state.job} formRef={formRef} />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSubmit}
+              >
+                Post Job{' '}
+              </Button>
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box p={5} border={1}>
+              <Typography variant="h4">Most Used Skills</Typography>
+              <SkillsList />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Box p={5} border={1}>
-            <Typography variant="h4">Most Used Skills</Typography>
-            <SkillsList />
-          </Box>
+        <Grid
+          container
+          item
+          xs={6}
+          spacing={2}
+          justifyContent="flex-start"
+          alignItems="flex-start"
+        >
+          <Grid item xs={12}>
+            <Box p={5} border={1}>
+              <Typography variant="h4"> Job Detail </Typography>
+              <JobDetail homeState={state} />
+            </Box>
+          </Grid>
+          <Grid item xs={12}>
+            <Box p={5} border={1}>
+              <Typography variant="h4">Job List</Typography>
+              <JobList state={state} setState={setState} />
+            </Box>
+          </Grid>
         </Grid>
       </Grid>
-      <Grid
-        container
-        item
-        xs={6}
-        spacing={2}
-        justifyContent="flex-start"
-        alignItems="flex-start"
-      >
-        <Grid item xs={12}>
-          <Box p={5} border={1}>
-            <Typography variant="h4"> Job Detail </Typography>
-            <JobDetail homeState={state} />
-          </Box>
-        </Grid>
-        <Grid item xs={12}>
-          <Box p={5} border={1}>
-            <Typography variant="h4">Job List</Typography>
-            <JobList state={state} setState={setState} />
-          </Box>
-        </Grid>
-      </Grid>
-    </Grid>
+    </Box>
   )
 }
 
